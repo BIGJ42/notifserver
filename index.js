@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -10,7 +11,8 @@ io.on('connection', (socket) => {
     console.log('New client connected');
 
     socket.on('sendNotification', (data) => {
-        io.emit('receiveNotification', data);
+        // Broadcast the notification to all connected clients
+        io.emit('notification', { title: data.title, message: data.message });
     });
 
     socket.on('disconnect', () => {
